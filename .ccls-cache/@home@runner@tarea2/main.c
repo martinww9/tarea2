@@ -1,6 +1,12 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "hashmap.h"
+#include "funciones_answer.h"
 
 int main(void) {
-  printf("Hello World\n");
-  return 0;
+    HashMap* newMap = (HashMap *) createMap(10);
+    mostrarMenu(newMap);
+    return 0;
 }
