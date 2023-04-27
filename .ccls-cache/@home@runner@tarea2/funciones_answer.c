@@ -82,3 +82,19 @@ void mostrarMenu(HashMap * map)
         }
     } while (opcion != 0);
 }
+
+Jugador * createJugador(char *nombre, HashMap* map)
+{
+    Jugador* jugador = (Jugador *) malloc(sizeof(Jugador));
+    if(jugador == NULL) 
+    {
+        printf("NO SE PUDO RESERVAR MEMORIA PARA CREAR AL JUGADOR.\n");
+        return NULL;
+    }
+    strcpy(jugador->nombre,nombre);
+    jugador->puntosHab = 0;
+    jugador->cantItem = 0;
+    jugador->item = NULL;
+    jugador->stack = createStack(3);
+    return jugador;
+}

@@ -10,4 +10,6 @@ void mostrarOpciones();
 
 void mostrarMenu(HashMap * map);
 
+Jugador * createJugador(char *nombre, HashMap * map);
+
 #endif /* Funciones_answer_h */
