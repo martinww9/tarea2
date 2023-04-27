@@ -39,7 +39,6 @@ void mostrarMenu(HashMap * map)
     int opcion;
     do {
         printf("\n");
-
         mostrarOpciones();
         
         scanf("%d", &opcion);
@@ -118,3 +117,75 @@ void crearPerfilJugador(HashMap* map){
     
     push(((Jugador *) auxJugador->value)->stack,1,nombre); 
 }
+
+void mostrarPerfilJugador(HashMap* map)
+{
+    char nombre[MAXLEN+1];
+    do {
+    printf("INGRESE NOMBRE DEL JUGADOR/A A MOSTRAR\n");
+    scanf("%s", nombre);
+    getchar();
+    } while (strlen(nombre) > MAXLEN);
+    
+    Pair* auxJugador = searchMap(map,nombre);
+    if (auxJugador == NULL)
+    {
+        printf("EL JUGADOR/A %s NO SE ENCUENTRA\n", nombre);
+        return;
+    }
+    
+    printf("PERFIL JUGADOR/A %s\n",nombre);
+    printf("NOMBRE : %s\n",nombre);
+    printf("CANTIDAD DE PUNTOS DE HABILIDAD : %i\n",((Jugador *)auxJugador->value)->puntosHab);
+    
+    if (((Jugador *)auxJugador->value)->cantItem == 0) 
+    {
+        printf("EL JUGADOR/A %s NO TIENE ITEMS\n",nombre);
+        return;
+    }
+    
+    printf("CANTIDAD DE ITEMS : %i\n",((Jugador *)auxJugador->value)->cantItem);
+    for (size_t k = 0; k < ((Jugador *)auxJugador->value)->cantItem ;k++)
+    {
+        printf("ITEM %zd : %s \n",k+1,((Jugador *)auxJugador->value)->item[k]);
+    }
+}
+
+void agregarItemJugador(HashMap * map){
+    char nombre[MAXLEN+1];
+    
+    do {
+        printf("INGRESE NOMBRE DEL JUGADOR/A A AGREGAR ITEM\n");
+        scanf("%s", nombre);
+        getchar();
+    } while (strlen(nombre) > MAXLEN);
+
+    Pair* auxJugador = searchMap(map,nombre);
+    
+    if (auxJugador == NULL)
+    {
+        printf("EL JUGADOR/A %s NO SE ENCUENTRA\n", nombre);
+        return;
+    }
+
+    do {
+        printf("INGRESE NOMBRE DEL ITEM A AGREGAR\n");
+        scanf("%s", nombre);
+        getchar();
+    } while (strlen(nombre) > MAXLEN);
+
+    Jugador* current = auxJugador->value;
+    int i = current->cantItem;
+    current->item =  realloc(current->item, sizeof(char *) * (i+1));
+    current->item[i] = (char *) malloc(sizeof(char)*(strlen(nombre)+1));
+
+    if (current->item == NULL){
+        printf("ERROR AL RESERVAR MEMORIA\n");
+        return;
+    }
+    strcpy(current->item[i],nombre);
+    
+    (current->cantItem)++;
+    push(((Jugador *)auxJugador->value)->stack,3,nombre);
+    
+} 

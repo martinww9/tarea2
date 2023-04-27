@@ -14,4 +14,8 @@ Jugador * createJugador(char * nombre, HashMap * map);
 
 void crearPerfilJugador(HashMap * map);
 
+void mostrarPerfilJugador(HashMap * map);
+
+void agregarItemJugador(HashMap * map);
+
 #endif /* Funciones_answer_h */
