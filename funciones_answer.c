@@ -86,15 +86,35 @@ void mostrarMenu(HashMap * map)
 Jugador * createJugador(char *nombre, HashMap* map)
 {
     Jugador* jugador = (Jugador *) malloc(sizeof(Jugador));
+    
     if(jugador == NULL) 
     {
         printf("NO SE PUDO RESERVAR MEMORIA PARA CREAR AL JUGADOR.\n");
         return NULL;
     }
+    
     strcpy(jugador->nombre,nombre);
     jugador->puntosHab = 0;
     jugador->cantItem = 0;
     jugador->item = NULL;
     jugador->stack = createStack(3);
     return jugador;
+}
+
+void crearPerfilJugador(HashMap* map){
+
+    char nombre[MAXLEN+1];
+    do {
+        printf("INGRESE NOMBRE DEL JUGADOR/A\n");
+        scanf("%s",nombre);
+        getchar();
+    } while (strlen(nombre) > MAXLEN);
+    
+    Jugador* jugador = createJugador(nombre, map);
+    insertMap(map,nombre,jugador);
+    printf("Perfil de jugador/a creado exitosamente.\n");
+
+    Pair* auxJugador = searchMap(map,nombre);
+    
+    push(((Jugador *) auxJugador->value)->stack,1,nombre); 
 }
