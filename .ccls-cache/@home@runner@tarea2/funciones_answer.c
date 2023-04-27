@@ -245,7 +245,7 @@ void eliminarItemJugador(HashMap* map){
     printf("EL ITEM %s HA SIDO ELIMINADO DEL JUGADOR/A %s.\n",item,nombre);
 
     push(((Jugador *)auxJugador->value)->stack,4,item);
-<<<<<<< HEAD
+//<<<<<<< HEAD
 }
 
 void agregarPuntosHabilidad(HashMap* map)
@@ -273,6 +273,43 @@ void agregarPuntosHabilidad(HashMap* map)
     ((Jugador *)auxJugador->value)->puntosHab+=puntosHab;
     
     push(((Jugador *)auxJugador->value)->stack,5,toString(puntosHab));
+}
+
+void mostrarJugadorConItem(HashMap* map)
+{
+    char item[MAXLEN+1];
+    do {
+        printf("INGRESE NOMBRE DE ITEM A BUSCAR\n");
+        scanf("%s", item);
+        getchar();
+    } while (strlen(item) > MAXLEN);
+    
+    bool encontrado = false;
+    for (int i=0;i<map->capacity;i++)
+    {
+        Pair* pair = map->buckets[i];
+        if (pair != NULL)
+        {
+            Jugador* auxJugador=(Jugador *)pair->value;
+            for (int j=0;j<auxJugador->cantItem;j++)
+            {
+                if (strcmp(auxJugador->item[j],item)==0)
+                {
+                    if (encontrado==false)
+                    {
+                        printf("JUGADORES CON EL ITEM %s\n",item);
+                        encontrado=true;
+                    }
+                    printf("JUGADOR/A : %s",auxJugador->nombre);
+                    break;
+                }
+            }
+        }
+                
+    }
+    if (encontrado == false) printf("NO SE ENCONTRARON JUGADORES/AS CON EL ITEM %s",item);
+    return;
+            
 }
 
 void exportarArchivoCSV(char * nombre_archivo, HashMap * map) {
