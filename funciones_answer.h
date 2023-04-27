@@ -18,4 +18,10 @@ void mostrarPerfilJugador(HashMap * map);
 
 void agregarItemJugador(HashMap * map);
 
+void eliminarItemJugador(HashMap * map);
+
+void agregarPuntosHabilidad(HashMap * map);
+
+char * toString(int num);
+
 #endif /* Funciones_answer_h */
