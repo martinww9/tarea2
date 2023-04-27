@@ -275,6 +275,30 @@ void agregarPuntosHabilidad(HashMap* map)
     push(((Jugador *)auxJugador->value)->stack,5,toString(puntosHab));
 }
 
+void exportarArchivoCSV(char * nombre_archivo, HashMap * map) {
+  FILE * archivo = fopen(nombre_archivo, "w");
+  if (archivo == NULL) {
+    printf("No se pudo crear el archivo %s.\n", nombre_archivo);
+    return;
+  }
+  Jugador * jugador;
+  Pair * pair = firstMap(map);
+  while (pair != NULL) {
+    if (pair != NULL && pair -> value != NULL) {
+      jugador = (Jugador * ) pair -> value;
+      fprintf(archivo, "%s,%d,%d", jugador -> nombre, jugador -> puntosHab, jugador -> cantItem);
+      for (int j = 0; j < jugador -> cantItem; j++) {
+        fprintf(archivo, ",%s", jugador -> item[j]);
+      }
+      fprintf(archivo, "\n");
+    }
+    pair = nextMap(map);
+  }
+  fclose(archivo);
+  printf("Se ha completado la exportación de los datos de los jugadores al archivo indicado %s.\n", nombre_archivo);
+
+}
+
 char *toString(int num) {
     char string[10];
     sprintf(string, "%d", num);

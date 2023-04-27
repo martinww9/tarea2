@@ -22,6 +22,8 @@ void eliminarItemJugador(HashMap * map);
 
 void agregarPuntosHabilidad(HashMap * map);
 
+void exportarArchivoCSV(char * nombre_archivo, HashMap * map);
+
 char * toString(int num);
 
 #endif /* Funciones_answer_h */
