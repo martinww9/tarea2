@@ -18,4 +18,6 @@ void mostrarPerfilJugador(HashMap * map);
 
 void agregarItemJugador(HashMap * map);
 
+void eliminarItemJugador(HashMap * map);
+
 #endif /* Funciones_answer_h */

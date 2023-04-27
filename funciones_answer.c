@@ -45,15 +45,19 @@ void mostrarMenu(HashMap * map)
         switch (opcion) {
         case 1:
             printf("OPCION 1 INGRESADA\n\n");
+            crearPerfilJugador(map);
             break;
         case 2:
             printf("OPCION 2 INGRESADA\n\n");
+            mostrarPerfilJugador(map);
             break;
         case 3:
             printf("OPCION 3 INGRESADA\n\n");
+            agregarItemJugador(map);
             break;
         case 4:
             printf("OPCION 4 INGRESADA\n\n");
+            eliminarItemJugador(map);
             break;
         case 5:
             printf("OPCION 5 INGRESADA\n\n");
@@ -189,3 +193,56 @@ void agregarItemJugador(HashMap * map){
     push(((Jugador *)auxJugador->value)->stack,3,nombre);
     
 } 
+
+void eliminarItemJugador(HashMap* map){
+    char nombre[MAXLEN +1];
+    char item[MAXLEN +1];
+  
+    do {
+    printf("INGRESE NOMBRE DEL JUGADOR/A\n");
+    scanf("%s",nombre);
+    getchar();
+    } while (strlen(nombre) > MAXLEN);
+    
+    Pair* auxJugador = searchMap(map, nombre);
+    
+    if ( auxJugador == NULL){
+        printf("EL JUGADOR/A %s NO SE ENCUENTRA\n", nombre);
+        return;
+    }
+    Jugador* jugador = auxJugador->value;
+    int index = -1;
+    
+    do {
+        printf("INGRESE NOMBRE DEL ITEM A ELIMINAR\n");
+        scanf("%s", item);
+        getchar();
+    } while (strlen(item) > MAXLEN);
+
+    for (int i = 0; i < jugador -> cantItem;i++){
+      if(strcmp(jugador->item[i],item)==0){
+        index = i;
+        break;
+      }
+    }
+    if (index == -1 ){
+      printf("EL ITEM %s NO ESTA EN EL INVENTARIO DE %s.\n", item, nombre);
+      return;
+    }
+    
+    free(jugador->item[index]);
+    
+    if (index != jugador -> cantItem -1){
+      jugador -> item[index] = jugador -> item [jugador -> cantItem -1 ];
+    }
+    jugador->cantItem--;
+    jugador->item = realloc(jugador->item, sizeof(char*) * jugador->cantItem);
+
+    for (int i = 0; i < jugador->cantItem; i++) {
+        jugador->item[i] = realloc(jugador->item[i], MAXLEN + 1);
+    }
+    printf("EL ITEM %s HA SIDO ELIMINADO DEL JUGADOR/A %s.\n",item,nombre);
+
+    push(((Jugador *)auxJugador->value)->stack,4,item);
+    
+}
