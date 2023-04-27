@@ -245,6 +245,7 @@ void eliminarItemJugador(HashMap* map){
     printf("EL ITEM %s HA SIDO ELIMINADO DEL JUGADOR/A %s.\n",item,nombre);
 
     push(((Jugador *)auxJugador->value)->stack,4,item);
+<<<<<<< HEAD
 }
 
 void agregarPuntosHabilidad(HashMap* map)
