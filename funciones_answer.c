@@ -303,11 +303,12 @@ void mostrarJugadorConItem(HashMap* map)
                 }
             }
         pair=nextMap(map);
-    }    
+    }
     if (encontrado == false) printf("NO SE ENCONTRARON JUGADORES/AS CON EL ITEM %s",item);
-    return;
-            
+    return;       
 }
+
+
 
 void exportarArchivoCSV(char * nombre_archivo, HashMap * map) {
   FILE * archivo = fopen(nombre_archivo, "w");
