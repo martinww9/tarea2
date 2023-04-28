@@ -69,6 +69,7 @@ void mostrarMenu(HashMap * map)
             break;
         case 7:
             printf("OPCION 7 INGRESADA\n\n");
+            deshacerUltimaAccion(map);
             break;
         case 8:
             printf("OPCION 8 INGRESADA\n\n");
@@ -315,7 +316,73 @@ void mostrarJugadorConItem(HashMap* map)
     return;       
 }
 
+void deshacerUltimaAccion(HashMap* map){
+    
+    if(!existenJugadores(map))
+    {
+        printf("NO EXISTEN JUGADORES/AS GUARDADOS\n");
+        return;
+    }
+    
+    char nombre[MAXLEN+1];
+    do {
+        printf("INGRESE NOMBRE DE JUGADOR/A\n");
+        scanf("%s", nombre);
+        getchar();
+    } while (strlen(nombre) > MAXLEN);
+    
+    Pair* auxJugador = searchMap(map,nombre);
+    if (auxJugador == NULL)
+    {
+        printf("EL JUGADOR/A %s NO SE ENCUENTRA\n", nombre);
+        return;
+    }
+    Jugador* jugador = auxJugador->value;
+    Info* elemen=pop(((Jugador *)auxJugador->value)->stack);
 
+    int opcion = elemen->accion;
+    char* valorAccion = elemen->valorAccion;
+    
+    if (opcion == -1){
+        printf("NO HAY ULTIMA ACCION REGISTRADA\n");
+        return;
+    }
+    switch(opcion)
+    {   
+        case 1:
+            eraseMap(map,nombre);
+            printf("PERFIL DE JUGADOR %s ELIMINADO\n",nombre);
+            break;
+        
+        case 3:
+            free(jugador->item[jugador->cantItem]);
+            jugador->cantItem--;
+            jugador->item = realloc(jugador->item, sizeof(char*) * jugador->cantItem);
+            printf("EL ITEM %s DEL JUGADOR/A %s HA SIDO ELIMINADO\n",valorAccion,jugador->nombre);
+            break;
+        case 4:
+            printf("");
+            int i = jugador->cantItem;
+            jugador->item =  realloc(jugador->item, sizeof(char *) * (i+1));
+            jugador->item[i] = (char *) malloc(sizeof(char)*(strlen(nombre)+1));
+        
+            if (jugador->item == NULL){
+                printf("ERROR AL RESERVAR MEMORIA\n");
+                return;
+            }
+            strcpy(jugador->item[i],valorAccion);
+            (jugador->cantItem)++;
+            printf("EL ITEM %s DEL JUGADOR/A %s HA SIDO AGREGADO\n",valorAccion,jugador->nombre);
+            break;
+
+        case 5:
+            
+            jugador->puntosHab -= atoi(valorAccion);
+            break;
+        default:
+            printf("LA OPCION INGRESADA NO SE PUEDE DESHACER\n");
+    }
+}
 
 void exportarArchivoCSV(char * nombre_archivo, HashMap * map) {
   FILE * archivo = fopen(nombre_archivo, "w");
