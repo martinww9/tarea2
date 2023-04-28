@@ -140,3 +140,9 @@ Pair * nextMap(HashMap * map) {
     return map->buckets[i];
 
 }
+
+bool existenJugadores(HashMap * map)
+{
+    if(map->size==0)return false;
+    return true;
+}

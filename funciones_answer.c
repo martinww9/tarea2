@@ -65,6 +65,7 @@ void mostrarMenu(HashMap * map)
             break;
         case 6:
             printf("OPCION 6 INGRESADA\n\n");
+            mostrarJugadorConItem(map);
             break;
         case 7:
             printf("OPCION 7 INGRESADA\n\n");
@@ -74,6 +75,7 @@ void mostrarMenu(HashMap * map)
             char nombre_archivo[MAXLEN+1];
             printf("INGRESE NOMBRE DEL ARCHIVO\n");
             scanf("%s", nombre_archivo);
+            exportarArchivoCSV(nombre_archivo, map);
             break;
         case 9:
             printf("OPCION 9 INGRESADA\n\n");
@@ -277,6 +279,11 @@ void agregarPuntosHabilidad(HashMap* map)
 
 void mostrarJugadorConItem(HashMap* map)
 {
+    if(!existenJugadores(map))
+    {
+        printf("NO EXISTEN JUGADORES/AS GUARDADOS\n");
+        return;
+    }
     char item[MAXLEN+1];
     do {
         printf("INGRESE NOMBRE DE ITEM A BUSCAR\n");

@@ -24,4 +24,6 @@ Pair * nextMap(HashMap * table);
 
 void enlarge(HashMap * map);
 
+bool existenJugadores(HashMap * map);
+
 #endif /* HashMap_h */
