@@ -285,12 +285,10 @@ void mostrarJugadorConItem(HashMap* map)
     } while (strlen(item) > MAXLEN);
     
     bool encontrado = false;
-    for (int i=0;i<map->capacity;i++)
+    Pair* pair = firstMap(map);
+    while (pair!=NULL)
     {
-        Pair* pair = map->buckets[i];
-        if (pair != NULL)
-        {
-            Jugador* auxJugador=(Jugador *)pair->value;
+        Jugador* auxJugador=(Jugador *)pair->value;
             for (int j=0;j<auxJugador->cantItem;j++)
             {
                 if (strcmp(auxJugador->item[j],item)==0)
@@ -304,9 +302,8 @@ void mostrarJugadorConItem(HashMap* map)
                     break;
                 }
             }
-        }
-                
-    }
+        pair=nextMap(map);
+    }    
     if (encontrado == false) printf("NO SE ENCONTRARON JUGADORES/AS CON EL ITEM %s",item);
     return;
             
