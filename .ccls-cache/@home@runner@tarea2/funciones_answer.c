@@ -83,6 +83,7 @@ void mostrarMenu(HashMap * map)
             char nombre_archivoE[MAXLEN+1];
             printf("INGRESE NOMBRE DEL ARCHIVO\n");
             scanf("%s", nombre_archivoE);
+            importarArchivoCSV(nombre_archivoE,map);
             break;
         case 0:
             printf("CERRANDO EL PROGRAMA...\n");
@@ -90,7 +91,7 @@ void mostrarMenu(HashMap * map)
     } while (opcion != 0);
 }
 
-Jugador * createJugador(char *nombre, HashMap* map)
+Jugador * createJugador(HashMap* map, char* nombre)
 {
     Jugador* jugador = (Jugador *) malloc(sizeof(Jugador));
     
@@ -113,7 +114,7 @@ void crearPerfilJugador(HashMap* map){
     char nombre[MAXLEN+1];
     do {
         printf("INGRESE NOMBRE DEL JUGADOR/A\n");
-        scanf("%[^\n]s",nombre);
+        scanf("%s",nombre);
         getchar();
     } while (strlen(nombre) > MAXLEN);
     
@@ -130,9 +131,9 @@ void mostrarPerfilJugador(HashMap* map)
 {
     char nombre[MAXLEN+1];
     do {
-    printf("INGRESE NOMBRE DEL JUGADOR/A A MOSTRAR\n");
-    scanf("%s", nombre);
-    getchar();
+        printf("INGRESE NOMBRE DEL JUGADOR/A A MOSTRAR\n");
+        scanf("%s", nombre);
+        getchar();
     } while (strlen(nombre) > MAXLEN);
     
     Pair* auxJugador = searchMap(map,nombre);
@@ -176,12 +177,16 @@ void agregarItemJugador(HashMap * map){
         return;
     }
 
+    printf("INGRESE NOMBRE DEL ITEM A AGREGAR\n");
+    scanf("%30[^\n]s", nombre);
+    getchar();
+    /*
     do {
         printf("INGRESE NOMBRE DEL ITEM A AGREGAR\n");
-        scanf("%[\n]s", nombre);
+        scanf("%[^\n]s", nombre);
         getchar();
     } while (strlen(nombre) > MAXLEN);
-
+    */
     Jugador* current = auxJugador->value;
     int i = current->cantItem;
     current->item =  realloc(current->item, sizeof(char *) * (i+1));
@@ -219,7 +224,7 @@ void eliminarItemJugador(HashMap* map){
     
     do {
         printf("INGRESE NOMBRE DEL ITEM A ELIMINAR\n");
-        scanf("%s", item);
+        scanf("%30[^\n]s", item);
         getchar();
     } while (strlen(item) > MAXLEN);
 

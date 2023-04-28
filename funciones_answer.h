@@ -10,7 +10,7 @@ void mostrarOpciones();
 
 void mostrarMenu(HashMap * map);
 
-Jugador * createJugador(char * nombre, HashMap * map);
+Jugador * createJugador(HashMap * map, char * nombre);
 
 void crearPerfilJugador(HashMap * map);
 

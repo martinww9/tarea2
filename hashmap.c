@@ -143,6 +143,6 @@ Pair * nextMap(HashMap * map) {
 
 bool existenJugadores(HashMap * map)
 {
-    if(map->size==0)return false;
+    if(map->size == 0)return false;
     return true;
 }
