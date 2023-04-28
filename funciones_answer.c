@@ -152,7 +152,8 @@ void mostrarPerfilJugador(HashMap* map)
         printf("EL JUGADOR/A %s NO TIENE ITEMS\n",nombre);
         return;
     }
-    
+
+    //HACER VECTOR DE CADENAS CON TABLA HASH
     printf("CANTIDAD DE ITEMS : %i\n",((Jugador *)auxJugador->value)->cantItem);
     for (size_t k = 0; k < ((Jugador *)auxJugador->value)->cantItem ;k++)
     {
@@ -162,7 +163,6 @@ void mostrarPerfilJugador(HashMap* map)
 
 void agregarItemJugador(HashMap * map){
     char nombre[MAXLEN+1];
-    
     do {
         printf("INGRESE NOMBRE DEL JUGADOR/A A AGREGAR ITEM\n");
         scanf("%s", nombre);
@@ -177,40 +177,36 @@ void agregarItemJugador(HashMap * map){
         return;
     }
 
-    printf("INGRESE NOMBRE DEL ITEM A AGREGAR\n");
-    scanf("%30[^\n]s", nombre);
-    getchar();
-    /*
+    char item[MAXLEN+1];
     do {
         printf("INGRESE NOMBRE DEL ITEM A AGREGAR\n");
-        scanf("%[^\n]s", nombre);
+        scanf("%[^\n]s", item);
         getchar();
-    } while (strlen(nombre) > MAXLEN);
-    */
+    } while (strlen(item) > MAXLEN);
+    
     Jugador* current = auxJugador->value;
     int i = current->cantItem;
     current->item =  realloc(current->item, sizeof(char *) * (i+1));
-    current->item[i] = (char *) malloc(sizeof(char)*(strlen(nombre)+1));
+    current->item[i] = (char *) malloc(sizeof(char)*(strlen(item)+1));
 
     if (current->item == NULL){
         printf("ERROR AL RESERVAR MEMORIA\n");
         return;
     }
-    strcpy(current->item[i],nombre);
     
+    strcpy(current->item[i],item);
     (current->cantItem)++;
-    push(((Jugador *)auxJugador->value)->stack,3,nombre);
+    printf("ITEM %s AGREGADO A JUGADOR/A %s\n",nombre,jugador->nombre);
+    push(((Jugador *)auxJugador->value)->stack,3,item);
     
 } 
 
 void eliminarItemJugador(HashMap* map){
     char nombre[MAXLEN +1];
-    char item[MAXLEN +1];
-  
     do {
-    printf("INGRESE NOMBRE DEL JUGADOR/A\n");
-    scanf("%s",nombre);
-    getchar();
+        printf("INGRESE NOMBRE DEL JUGADOR/A\n");
+        scanf("%s",nombre);
+        getchar();
     } while (strlen(nombre) > MAXLEN);
     
     Pair* auxJugador = searchMap(map, nombre);
@@ -221,7 +217,8 @@ void eliminarItemJugador(HashMap* map){
     }
     Jugador* jugador = auxJugador->value;
     int index = -1;
-    
+
+    char item[MAXLEN +1];
     do {
         printf("INGRESE NOMBRE DEL ITEM A ELIMINAR\n");
         scanf("%30[^\n]s", item);
@@ -293,7 +290,7 @@ void mostrarJugadorConItem(HashMap* map)
     char item[MAXLEN+1];
     do {
         printf("INGRESE NOMBRE DE ITEM A BUSCAR\n");
-        scanf("%s", item);
+        scanf("%30[^\n]", item);
         getchar();
     } while (strlen(item) > MAXLEN);
     
@@ -311,7 +308,7 @@ void mostrarJugadorConItem(HashMap* map)
                         printf("JUGADORES CON EL ITEM %s\n",item);
                         encontrado=true;
                     }
-                    printf("JUGADOR/A : %s",auxJugador->nombre);
+                    printf("JUGADOR/A : %s\n",auxJugador->nombre);
                     break;
                 }
             }
