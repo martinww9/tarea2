@@ -28,6 +28,8 @@ void deshacerUltimaAccion(HashMap * map);
 
 void exportarArchivoCSV(char * nombre_archivo, HashMap * map);
 
+void importarArchivoCSV(char* nombre_archivo, HashMap* map);
+
 char * toString(int num);
 
 #endif /* Funciones_answer_h */

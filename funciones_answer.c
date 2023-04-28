@@ -113,7 +113,7 @@ void crearPerfilJugador(HashMap* map){
     char nombre[MAXLEN+1];
     do {
         printf("INGRESE NOMBRE DEL JUGADOR/A\n");
-        scanf("%s",nombre);
+        scanf("%[^\n]s",nombre);
         getchar();
     } while (strlen(nombre) > MAXLEN);
     
@@ -178,7 +178,7 @@ void agregarItemJugador(HashMap * map){
 
     do {
         printf("INGRESE NOMBRE DEL ITEM A AGREGAR\n");
-        scanf("%s", nombre);
+        scanf("%[\n]s", nombre);
         getchar();
     } while (strlen(nombre) > MAXLEN);
 
@@ -406,6 +406,46 @@ void exportarArchivoCSV(char * nombre_archivo, HashMap * map) {
   fclose(archivo);
   printf("Se ha completado la exportación de los datos de los jugadores al archivo indicado %s.\n", nombre_archivo);
 
+}
+void importarArchivoCSV(char* nombre_archivo, HashMap* map) {
+    FILE* archivo = fopen(nombre_archivo, "r");
+    if (archivo == NULL) {
+        printf("No se pudo abrir el archivo %s\n", nombre_archivo);
+        return;
+    }
+
+    char* linea = NULL;
+    size_t longitud = 0;
+    ssize_t leido;
+    int cont = 0;
+    while ((leido = getline(&linea, &longitud, archivo)) != -1) {
+        char* nombre = strtok(linea, ",");
+        int puntosHab = atoi(strtok(NULL, ","));
+        int cantItem = atoi(strtok(NULL, ","));
+
+        Jugador* jugador = (Jugador*) malloc(sizeof(Jugador));
+        strncpy(jugador->nombre, nombre, MAXLEN);
+        jugador->nombre[MAXLEN] = '\0';
+        jugador->puntosHab = puntosHab;
+        jugador->cantItem = cantItem;
+
+        jugador->item = (char**) malloc(sizeof(char*) * cantItem);
+        for (int i = 0; i < cantItem; i++) {
+            char* nombreItem = strtok(NULL, ",");
+            jugador->item[i] = (char*) malloc(sizeof(char) * (strlen(nombreItem) + 1));
+            strcpy(jugador->item[i], nombreItem);
+          }
+          if (cont != 0) {
+              jugador->stack = createStack(3);
+              push(jugador->stack,1,nombre);
+              insertMap(map, jugador->nombre, jugador);
+         }
+      cont++;
+    }
+
+    free(linea);
+    fclose(archivo);
+    printf("Los datos de los jugadores se han cargado desde el archivo %s\n", nombre_archivo);
 }
 
 char *toString(int num) {
