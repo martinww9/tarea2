@@ -53,97 +53,98 @@ void insertMap(HashMap * map, char * key, void * value) {
     if (map->size >= 0.25 * map->capacity)
         enlarge(map);
     
-    long i = hash(key,map->capacity);
-
-    while(map->buckets[i] != NULL && map->buckets[i]->key != NULL)
+    long indice = hash(key,map->capacity);
+    while (map->buckets[indice]!=NULL && map->buckets[indice]->key!=NULL)
     {
-        if(is_equal(map->buckets[i]->key,key) == 1) return;
-        
-        i++;
-        if (i >= map->capacity) i = 0;
+        if (is_equal(key,map->buckets[indice]->key)==1)return;
+        indice=(indice+1)%map->capacity;    
     }
-
-    map->buckets[i] = createPair(key,value);
-    map->current = i;
-    (map->size)++;
+    map->buckets[indice]=createPair(key,value);
+    map->current=indice;
+    map->size++;
+    return;
 }
 
 void enlarge(HashMap * map) {
     enlarge_called = 1; //no borrar (testing purposes)
-
-    if (map->capacity == 0) return;
-    
-    Pair** aux = map->buckets;
-    map->capacity *= 2;
-    map->buckets = (Pair **) calloc(map->capacity,sizeof(Pair*));
-    map->size = 0;
-
-    for(int i = 0 ; i < map->capacity / 2 ; i++)
-        if (aux[i] != NULL && aux[i]->key != NULL)
-            insertMap(map,aux[i]->key,aux[i]->value);
-
-    free(aux);
+    Pair** viejos=map->buckets;
+    long capacidadVieja=map->capacity;
+    map->capacity = map->capacity * 2;
+    map->buckets = (Pair **) calloc(map->capacity,sizeof(Pair *));
+    if (map->buckets==NULL)exit(EXIT_FAILURE);
+    map->size=0;
+    for (long k=0;k<capacidadVieja;k++)
+    {
+        if (viejos[k] !=NULL && viejos[k]->key != NULL)
+        {
+            insertMap(map,viejos[k]->key,viejos[k]->value);
+        }  
+    }
+    free(viejos);
     
 }
 
 
 HashMap * createMap(long capacity) {
-    HashMap* newMap = (HashMap *) malloc(sizeof(HashMap));
-    newMap->buckets = (Pair **) calloc(capacity,sizeof(Pair *));
-    newMap->size = 0;
-    newMap->capacity = capacity;
-    newMap->current = -1;
-
-    return newMap;
+    HashMap *map = (HashMap *) malloc(sizeof(HashMap));
+    if (map==NULL)return NULL;
+    map->buckets = (Pair **) calloc(capacity,sizeof(Pair *));
+    if (map->buckets==NULL)return NULL;
+    map->size = 0;
+    map->capacity = capacity;
+    map->current = -1;
+    return map;
 }
 
 void eraseMap(HashMap * map,  char * key) {    
-    int i = hash(key,map->capacity);
-
-    while(map->buckets[i] != NULL && is_equal(map->buckets[i]->key,key) != 1)
+    if (searchMap(map,key)!=NULL)
     {
-        i++;
+        map->buckets[map->current]->key=NULL;
+        map->size--;
+        return;
     }
-
-    if (map->buckets[i] == NULL) return;
-    map->buckets[i]->key = NULL;
-    (map->size)--;
 
 
 }
 
 Pair * searchMap(HashMap * map,  char * key) {  
-    long i = hash(key,map->capacity);
-    
-    while(map->buckets[i] != NULL && is_equal(map->buckets[i]->key,key) != 1)
+    long indice = hash(key,map->capacity);
+    while (map->buckets[indice]!=NULL)
     {
-        i++;
+        if (is_equal(key,map->buckets[indice]->key))
+        {
+            map->current=indice;
+            return map->buckets[indice];
+        }
+        indice=(indice+1)%map->capacity;    
     }
-    
-    if (map->buckets[i] == NULL) return NULL;
-     
-    map->current = i;
-    return map->buckets[i];
+    return NULL;
 }
 
 Pair * firstMap(HashMap * map) {
-    int i = 0;
-    while(map->buckets[i] == NULL || map->buckets[i]->key == NULL )
-        i++;
-    map->current = i;
-    return map->buckets[i];
+    for (size_t k=0;k<map->capacity;k++)
+    {
+        if (map->buckets[k] != NULL && map->buckets[k]->key != NULL)
+        {
+            map->current=k;
+            return map->buckets[k];
+        }
+            
+    }
+    return NULL;
     
 }
 
 Pair * nextMap(HashMap * map) {
-    if (map->current > map->capacity) return NULL;
-    int i = (map->current) + 1;
-    while(map->buckets[i] == NULL || map->buckets[i]->key == NULL ){
-        i++;
-        if (i >= map->capacity) return NULL;
+    for (size_t k=map->current+1;k<map->capacity;k++)
+    {
+        if (map->buckets[k] != NULL && map->buckets[k]->key != NULL)
+        {
+            map->current=k;
+            return map->buckets[k];
+        }
     }
-    map->current = i;
-    return map->buckets[i];
+    return NULL;
 
 }
 
