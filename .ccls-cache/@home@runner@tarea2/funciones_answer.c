@@ -381,35 +381,44 @@ void exportarArchivoCSV(char * nombre_archivo, HashMap * map) {
 }
 void importarArchivoCSV(char* nombre_archivo, HashMap* map) {
     FILE* archivo = fopen(nombre_archivo, "r");
+    
     if (archivo == NULL) {
         printf("NO SE PUDO ABRIR EL ARCHIVO %s\n", nombre_archivo);
         return;
     }
-
+    
     char* linea = NULL;
     size_t longitud = 0;
     ssize_t leido;
     int cont = 0;
-    while ((leido = getline(&linea, &longitud, archivo)) != -1) {
+    while ((leido = getline(&linea, &longitud, archivo)) != -1)
+    {
         char* nombre = strtok(linea, ",");
         int puntosHab = atoi(strtok(NULL, ","));
         int items_map = atoi(strtok(NULL, ","));
-
+        
         Jugador* jugador = (Jugador*) malloc(sizeof(Jugador));
         strncpy(jugador->nombre, nombre, MAXLEN);
         jugador->nombre[MAXLEN] = '\0';
         jugador->puntosHab = puntosHab;
-
         jugador->mapItem = createMap(items_map);
-
+        
         for (int i = 0; i < items_map; i++) {
             char* item_nombre = strtok(NULL, ",");
             Pair* item = searchMap(jugador->mapItem, item_nombre);
-            if (item == NULL) {
+            
+            if (item == NULL) { 
                 insertMap(jugador->mapItem, strdup(item_nombre), strdup(item_nombre));
             }
+            
         }
-        insertMap(map, jugador->nombre, jugador);
+        
+        if (cont != 0) {
+              jugador->stack = createStack(3);
+              push(jugador->stack,1,nombre);
+              insertMap(map, jugador->nombre, jugador);
+         }
+        cont++;
     }
 
     free(linea);
@@ -417,7 +426,6 @@ void importarArchivoCSV(char* nombre_archivo, HashMap* map) {
     printf("LOS DATOS DE LOS JUGADORES SE HAN CARGADO DESDE %s\n", nombre_archivo);
 }
 
-    
 char *toString(int num) {
     char string[10];
     sprintf(string, "%d", num);

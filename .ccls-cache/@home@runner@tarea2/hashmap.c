@@ -8,7 +8,7 @@
 
 typedef struct HashMap HashMap;
 typedef struct HashMap mapItem;
-int enlarge_called=0;
+int enlarge_called=0; 
 
 struct mapItem {
     parItems** buckets;
@@ -50,6 +50,7 @@ int is_equal(void* key1, void* key2){
 
 
 void insertMap(HashMap * map, char * key, void * value) {
+    if (map->size/map->capacity>=0.7)enlarge(map);
     long i = hash(key,map->capacity);
 
     while(map->buckets[i] != NULL && map->buckets[i]->key != NULL)
