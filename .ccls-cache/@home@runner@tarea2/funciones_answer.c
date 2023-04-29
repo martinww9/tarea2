@@ -9,11 +9,12 @@
 #include "stack.h"
 #include "funciones_answer.h"
 
-#define MAXLEN 30
+#define MAXLEN 1000
 
 struct Jugador{
     char nombre[MAXLEN+1];
     int puntosHab;
+    int cantidadItems;
     HashMap* mapItem;
     Stack* stack;
 };
@@ -102,6 +103,7 @@ Jugador * createJugador(HashMap* map, char* nombre)
     
     strcpy(jugador->nombre,nombre);
     jugador->puntosHab = 0;
+    jugador->cantidadItems=0;
     jugador->mapItem = createMap(10);
     jugador->stack = createStack(3);
     return jugador;
@@ -188,7 +190,8 @@ void agregarItemJugador(HashMap * map){
     } while (strlen(item) > MAXLEN);
     
     insertMap(((Jugador *)auxJugador->value)->mapItem, strdup(item), strdup(item));
-
+    printf("EL ITEM %s HA SIDO AGREGADO AL JUGADOR/A %s.\n",item,nombre);
+    ((Jugador *) auxJugador->value)->cantidadItems++;
     push(((Jugador *) auxJugador->value)->stack,3,item);
 } 
 
@@ -225,7 +228,7 @@ void eliminarItemJugador(HashMap* map){
     eraseMap(jugador->mapItem,item);
     
     printf("EL ITEM %s HA SIDO ELIMINADO DEL JUGADOR/A %s.\n",item,nombre);
-
+    ((Jugador *) auxJugador->value)->cantidadItems--;
     push(((Jugador *)auxJugador->value)->stack,4,item);
 }
 
@@ -336,11 +339,14 @@ void deshacerUltimaAccion(HashMap* map){
         case 3:
             eraseMap(jugador->mapItem,valorAccion);
             printf("EL ITEM %s DEL JUGADOR/A %s HA SIDO ELIMINADO\n",valorAccion,jugador->nombre);
+            ((Jugador *)auxJugador->value)->cantidadItems--;
+            
             break;
         
         case 4:
             insertMap(((Jugador *)auxJugador->value)->mapItem, strdup(valorAccion), strdup(valorAccion));
             printf("EL ITEM %s DEL JUGADOR/A %s HA SIDO AGREGADO\n",valorAccion,jugador->nombre);
+            ((Jugador *)auxJugador->value)->cantidadItems++;
             break;
         
         case 5:
@@ -362,23 +368,27 @@ void exportarArchivoCSV(char * nombre_archivo, HashMap * map) {
     
   Jugador * jugador;
   Pair * pair = firstMap(map);
-  while (pair != NULL) {
-    if (pair != NULL && pair -> value != NULL) {
-      jugador = (Jugador * ) pair -> value;
-        /*
-      fprintf(archivo, "%s,%d,%d", jugador -> nombre, jugador -> puntosHab, jugador -> cantItem);
-      for (int j = 0; j < jugador -> cantItem; j++) {
-        fprintf(archivo, ",%s", jugador -> item[j]);
+  while (pair != NULL) 
+  {
+      if (pair != NULL && pair -> value != NULL) 
+      {
+          jugador = (Jugador * ) pair -> value;
+          fprintf(archivo, "%s,%d,%d", jugador -> nombre, jugador -> puntosHab, jugador -> cantidadItems);
+          Pair* parItem=firstMap(jugador->mapItem);
+          while (parItem!=NULL) 
+          {
+              fprintf(archivo, ",%s", parItem->key);
+              parItem=nextMap(jugador->mapItem);
+          }
       }
       fprintf(archivo, "\n");
-          */
-    }
-    pair = nextMap(map);
+      pair = nextMap(map);
   }
   fclose(archivo);
   printf("SE HA COMPLETADO LA EXPORTACION DE LOS DATOS DE LOS JUGADORES AL ARCHIVO %s.\n", nombre_archivo);
 
 }
+
 void importarArchivoCSV(char* nombre_archivo, HashMap* map) {
     FILE* archivo = fopen(nombre_archivo, "r");
     
@@ -396,11 +406,11 @@ void importarArchivoCSV(char* nombre_archivo, HashMap* map) {
         char* nombre = strtok(linea, ",");
         int puntosHab = atoi(strtok(NULL, ","));
         int items_map = atoi(strtok(NULL, ","));
-        
         Jugador* jugador = (Jugador*) malloc(sizeof(Jugador));
-        strncpy(jugador->nombre, nombre, MAXLEN);
-        jugador->nombre[MAXLEN] = '\0';
+        strcpy(jugador->nombre, nombre);
+        //jugador->nombre[MAXLEN] = '\0';
         jugador->puntosHab = puntosHab;
+        jugador->cantidadItems=items_map;
         jugador->mapItem = createMap(items_map);
         
         for (int i = 0; i < items_map; i++) {
@@ -425,6 +435,7 @@ void importarArchivoCSV(char* nombre_archivo, HashMap* map) {
     fclose(archivo);
     printf("LOS DATOS DE LOS JUGADORES SE HAN CARGADO DESDE %s\n", nombre_archivo);
 }
+
 
 char *toString(int num) {
     char string[10];
