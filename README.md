@@ -42,6 +42,35 @@ calidad de trabajo:Claudio Cabello 20,David Martinez 20, Martin Vazquez 20, Mati
 trabajo en equipo:Claudio Cabello 20,David Martinez 20, Martin Vazquez 20, Matias Prado 20
 puntaje final:Claudio Cabello 100, David Martinez 100, Martin Vazquez 100, Matias Prado 95
 
+*ASPECTOS POSITIVOS*
+
+CLAUDIO CABELLO:
+Siempre viene a clases y participativo
+Tiene la iniciativa
+Buena participacion
+
+
+DAVID MARTINEZ:
+Asiste a clases y aporta tarea
+Pariticpativo en tarea y actividades en clases
+Dispuesto ayudar
+
+MATIAS PRADO
+Aporta en clases
+Activo en actividad en clases
+
+MARTIN VASQUEZ
+Aporta en tarea y asiste a clases
+dispuesto ayudar en dudas
+aporta en actividad en equipo
+
+*ASPECTOS NEGATIVOS*
+
+MATIAS PRADO:
+Poco aporte en la tarea y actividades
+Responsabilidad en horario de clases
+
+
 *APORTE INDIVIDUAL*
 iIMPLEMENTACION DE TDAS: Claudio Cabello
 MENU: Claudio Cabello/David Martinez
@@ -57,8 +86,9 @@ OPCION 9: Martin Vasquez
 README: Claudio Cabello/Matias Prado
 
 (5)Herramientras utilizadas en el desarrollo:
+
 La principal herramienta de trabajo que utilizamos en el desarrollo del menu es el IDE online 'replit'. Esta nos nos permitio trabajar colaborativamente en el mismo codigo y compilarlo. Tambien nos otorgo memoria virtual para crear archivos que separen el codigo.
 
 Otra herramienta que se utilizo es la herramienta de control de versiones 'git' la cual nos permitio añadir, actualizar y subir nuestro avance a un repositorio ubicado en github.
 
-Por ultimo la plataforma 'github' la cual nos permitio crear nuestro repositorio y guardar el codigo.
+Por ultimo la plataforma 'github' la cual nos permitio crear nuestro repositorio y almacenar el codigo.

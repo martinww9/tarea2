@@ -14,6 +14,7 @@ typedef struct parItems{
      void * value; 
 } parItems;
 
+
 HashMap * createMap(long capacity);
 
 void insertMap(HashMap * table, char * key, void * value);
@@ -29,5 +30,7 @@ Pair * nextMap(HashMap * table);
 void enlarge(HashMap * map);
 
 bool existenJugadores(HashMap * map);
+
+long sizeMap(HashMap * map);
 
 #endif /* HashMap_h */

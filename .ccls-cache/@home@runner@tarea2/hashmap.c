@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 #include <ctype.h>
 #include <stdbool.h>
 #include "hashmap.h"
@@ -151,4 +150,9 @@ bool existenJugadores(HashMap * map)
 {
     if(map->size == 0) return false;
     return true;
+}
+
+long sizeMap(HashMap * map)
+{
+    return map->size;
 }

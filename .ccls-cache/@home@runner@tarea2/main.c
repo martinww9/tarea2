@@ -8,6 +8,7 @@
 
 int main(void) {
     HashMap* newMap = (HashMap *) createMap(10);
-    mostrarMenu(newMap);
+    mostrarMenu(newMap); 
+    
     return 0;
 }
