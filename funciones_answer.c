@@ -107,7 +107,8 @@ Jugador * createJugador(HashMap* map, char* nombre)
     return jugador;
 }
 
-void crearPerfilJugador(HashMap* map){
+void crearPerfilJugador(HashMap* map)
+{
     char nombre[MAXLEN+1];
     do {
         printf("INGRESE NOMBRE DEL JUGADOR/A\n");
