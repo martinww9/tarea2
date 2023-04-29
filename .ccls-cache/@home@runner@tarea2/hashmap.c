@@ -7,8 +7,15 @@
 #include "hashmap.h"
 
 typedef struct HashMap HashMap;
+typedef struct HashMap mapItem;
 int enlarge_called=0;
 
+struct mapItem {
+    parItems** buckets;
+    long size;
+    long capacity; 
+    long current; 
+};
 
 struct HashMap {
     Pair** buckets;

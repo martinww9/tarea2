@@ -2,11 +2,18 @@
 #define HashMap_h
 
 typedef struct HashMap HashMap;
+typedef struct HashMap mapItem;
+
 
 typedef struct Pair {
      char * key;
      void * value; 
 } Pair;
+
+typedef struct parItems{
+     char * key;
+     void * value; 
+} parItems;
 
 
 
