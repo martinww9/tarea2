@@ -24,7 +24,12 @@ OPCION 9 SI DESEA CARGAR DATOS DE JUGADORES DESDE UN ARCHIVO CSV: Este funcion r
 
 (2) las opciones que funcionan correctamente y las que no lo hacen indicando posibles causas;
 
-(3) coevaluación del trabajo en equipo (usando rúbrica);
+(3) coevaluación del trabajo en equipo (usando rúbrica):
+participacion activa:20
+resolucion de conflictos:20
+colaboracion:20
+responsabilidad:20
+comunicacion:20
 
 (4) coevaluación del aporte individual de cada integrante (usando rúbrica).
 
@@ -36,15 +41,6 @@ comunicacion:Claudio Cabello 20,David Martinez 20, Martin Vazquez 20, Matias Pra
 calidad de trabajo:Claudio Cabello 20,David Martinez 20, Martin Vazquez 20, Matias Prado 20
 trabajo en equipo:Claudio Cabello 20,David Martinez 20, Martin Vazquez 20, Matias Prado 20
 puntaje final:Claudio Cabello 100, David Martinez 100, Martin Vazquez 100, Matias Prado 95
-
-*APORTE INDIVIDUAL*
-CLAUDIO CABELLO:
-
-DAVID MARTINEZ:
-
-MATIAS PRADO:
-
-MARTIN VASQUEZ:
 
 (5)Herramientras utilizadas en el desarrollo:
 La principal herramienta de trabajo que utilizamos en el desarrollo del menu es el IDE online 'replit'. Esta nos nos permitio trabajar colaborativamente en el mismo codigo y compilarlo. Tambien nos otorgo memoria virtual para crear archivos que separen el codigo.
