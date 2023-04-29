@@ -23,24 +23,38 @@ OPCION 8 SI DESEA EXPORTAR DATOS DE JUGADORES A UN ARCHIVO CSV: Esta funcion se 
 OPCION 9 SI DESEA CARGAR DATOS DE JUGADORES DESDE UN ARCHIVO CSV: Este funcion recibe como parámetros el nombre de un archivo y un mapa HashMap. La función abre el archivo y lee su contenido línea por línea utilizando la función getline. Luego, separa cada línea en campos utilizando la función strtok y crea un objeto Jugador con los datos obtenidos. Finalmente, agrega este objeto al mapa utilizando la función insertMap. Además, la función crea un stack para el jugador, lo que sugiere que se trata de un juego donde los jugadores pueden acumular objetos en su inventario. En caso de que no se pueda abrir el archivo, la función muestra un mensaje de error. Al finalizar, muestra un mensaje indicando que la carga de datos ha sido completada.
 
 (2) las opciones que funcionan correctamente y las que no lo hacen indicando posibles causas;
+Todas las opciones funcionan correctamente
 
 (3) coevaluación del trabajo en equipo (usando rúbrica):
-participacion activa:20
-resolucion de conflictos:20
-colaboracion:20
-responsabilidad:20
-comunicacion:20
+participacion activa: 20
+resolucion de conflictos: 20
+colaboracion: 20
+responsabilidad: 20
+comunicacion: 20
 
 (4) coevaluación del aporte individual de cada integrante (usando rúbrica).
 
 puntaje asignado en coevaluacion:
-
 participacion:Claudio Cabello 20, David Martinez 20, Martin Vazquez 20, Matias Prado 15
 responsabilidad:Claudio Cabello 20,David Martinez 20, Martin Vazquez 20, Matias Prado 20
 comunicacion:Claudio Cabello 20,David Martinez 20, Martin Vazquez 20, Matias Prado 20
 calidad de trabajo:Claudio Cabello 20,David Martinez 20, Martin Vazquez 20, Matias Prado 20
 trabajo en equipo:Claudio Cabello 20,David Martinez 20, Martin Vazquez 20, Matias Prado 20
 puntaje final:Claudio Cabello 100, David Martinez 100, Martin Vazquez 100, Matias Prado 95
+
+*APORTE INDIVIDUAL*
+iIMPLEMENTACION DE TDAS: Claudio Cabello
+MENU: Claudio Cabello/David Martinez
+OPCION 1: David Martinez
+OPCION 2: David Martinez
+OPCION 3: Claudio Cabello
+OPCION 4: Claudio Cabello/Matias Prado
+OPCION 5: Claudio Cabello/David Martinez
+OPCION 6: David Martinez
+OPCION 7: David Martinez/Claudio Cabello
+OPCION 8: Martin Vasquez
+OPCION 9: Martin Vasquez
+README: Claudio Cabello/Matias Prado
 
 (5)Herramientras utilizadas en el desarrollo:
 La principal herramienta de trabajo que utilizamos en el desarrollo del menu es el IDE online 'replit'. Esta nos nos permitio trabajar colaborativamente en el mismo codigo y compilarlo. Tambien nos otorgo memoria virtual para crear archivos que separen el codigo.

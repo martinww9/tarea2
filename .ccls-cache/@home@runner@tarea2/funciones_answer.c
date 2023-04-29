@@ -9,7 +9,7 @@
 #include "stack.h"
 #include "funciones_answer.h"
 
-#define MAXLEN 1000
+#define MAXLEN 30
 
 struct Jugador{
     char nombre[MAXLEN+1];
@@ -40,7 +40,6 @@ void mostrarMenu(HashMap * map)
     do {
         printf("\n");
         mostrarOpciones();
-        
         scanf("%d", &opcion);
         switch (opcion) {
         case 1:
@@ -153,14 +152,13 @@ void mostrarPerfilJugador(HashMap* map)
         return;
     }
     
-    
     Pair* auxItem = firstMap(((Jugador *)auxJugador->value)->mapItem);
     printf("ITEMS DEL JUGADOR/A:\n");
     
     int k = 1;
     while (auxItem != NULL)
     {
-        printf("ITEM %d: %s\n",k,auxItem->value);
+        printf("ITEM %d: %s\n",k,auxItem->key);
         auxItem = nextMap(((Jugador *)auxJugador->value)->mapItem);  
         k++;
     }
@@ -235,7 +233,6 @@ void eliminarItemJugador(HashMap* map){
 void agregarPuntosHabilidad(HashMap* map)
 {
     char nombre[MAXLEN+1];
-    
     do {
         printf("INGRESE NOMBRE DEL JUGADOR/A A AGREGAR PUNTOS DE HABILIDAD\n");
         scanf("%s", nombre);
@@ -289,7 +286,6 @@ void mostrarJugadorConItem(HashMap* map)
             printf("JUGADOR/A : %s\n",auxJugador->nombre);
             encontrado = true;
         }
-        
         pair = nextMap(map);
     }
     
@@ -408,13 +404,16 @@ void importarArchivoCSV(char* nombre_archivo, HashMap* map) {
         int items_map = atoi(strtok(NULL, ","));
         Jugador* jugador = (Jugador*) malloc(sizeof(Jugador));
         strcpy(jugador->nombre, nombre);
-        //jugador->nombre[MAXLEN] = '\0';
         jugador->puntosHab = puntosHab;
         jugador->cantidadItems=items_map;
         jugador->mapItem = createMap(items_map);
         
         for (int i = 0; i < items_map; i++) {
             char* item_nombre = strtok(NULL, ",");
+            
+            if (i == items_map - 1) 
+                item_nombre[strlen(item_nombre) - 2] = '\0';
+            
             Pair* item = searchMap(jugador->mapItem, item_nombre);
             
             if (item == NULL) { 

@@ -4,7 +4,6 @@
 typedef struct HashMap HashMap;
 typedef struct HashMap mapItem;
 
-
 typedef struct Pair {
      char * key;
      void * value; 
@@ -14,8 +13,6 @@ typedef struct parItems{
      char * key;
      void * value; 
 } parItems;
-
-
 
 HashMap * createMap(long capacity);
 

@@ -7,26 +7,22 @@
 #include "stack.h"
 #define MAXLEN 30
 
-
 struct Stack{
     int top;
     int capac;
     Info** acciones;
 };
 
-
 Stack * createStack(int capacity) {
     Stack * stack = (Stack*)malloc(sizeof(Stack));
     stack->top = -1;
     stack->capac = capacity;
-    //stack->acciones = NULL;
     stack->acciones = (Info**) malloc(stack->capac * sizeof(Info*));
     if (stack->acciones == NULL) {
         printf("NO HAY SUFICIENTE ESPACIO PARA LA PILA\n");
         exit(EXIT_FAILURE);
     }
     return stack;
-    
 }
 
 void initializeStack(Stack * stack) {
@@ -41,11 +37,9 @@ int isStackFull(Stack * stack) {
     return (stack->top == stack->capac - 1);
 }
 
-
 void push(Stack* stack, int action, char* actionValue) {
     if (stack->top == stack->capac -1 ) {
         stack->capac *= 2;
-        printf("segundo   capaci%i  top %i\n",stack->capac,stack->top);
         stack->acciones = (Info**) realloc(stack->acciones, sizeof(Info*) * stack->capac);
         if (stack->acciones == NULL) {
             printf("ERROR AL ASIGNAR MEMORIA AL STACK.\n");

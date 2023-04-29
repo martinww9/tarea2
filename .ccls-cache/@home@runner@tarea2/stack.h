@@ -3,12 +3,10 @@
 typedef struct Stack Stack;
 typedef struct Info Info;
 
-
 struct Info{
     int accion;
     char * valorAccion;
 };
-
 
 Stack * createStack(int capacity);
 
